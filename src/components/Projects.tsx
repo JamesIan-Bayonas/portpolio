@@ -14,7 +14,7 @@ const projects = [
     hash: "7e1d40",
     title: "DORMFIX — Property & Dormitory Management System",
     description:
-      "A full-stack dormitory management platform featuring a Zero-Trust AI payment verification pipeline (Tesseract OCR + LLM receipt audit), ACID-compliant room capacity allocation in MSSQL, real-time WebSocket communication, and automated maintenance triaging.",
+      "A full-stack dormitory management platform featuring a Zero-Trust AI payment verification pipeline (Tesseract OCR + LLM receipt audit), ACID-compliant room capacity allocation in PostgreSQL, real-time WebSocket communication, and automated maintenance triaging.",
     tech: ["React 19", "TypeScript", "Node.js", "Express 5", "PostgreSQL", "Supabase", "Tesseract.js", "Gemini AI", "Socket.io", "Tailwind CSS", "Recharts"],
     additions: 1240,
     deletions: 182,
