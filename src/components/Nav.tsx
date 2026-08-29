@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
-import resumePdf from "./docs/resume/RESUME.pdf?url"
+// import resumePdf from "./docs/resume/RESUME.pdf?url"
 
 const links = ["about", "process", "projects", "skills", "contact"]
 
@@ -97,9 +97,9 @@ export default function Nav() {
             </a>
           ))}
 
-          {/* Desktop Download Button */}
+          {/* Desktop Link */}
           <a
-            href={resumePdf}
+            href="/RESUME.pdf"
             download="James_Ian_Bayonas_Resume.pdf"
             className="text-sm transition-colors duration-150 px-4 py-1.5 border cursor-pointer"
             style={{
@@ -176,9 +176,9 @@ export default function Nav() {
               </a>
             ))}
             
-            {/* Mobile Download Button */}
+            {/* Mobile Menu Link */}
             <a
-              href={resumePdf}
+              href="/RESUME.pdf"
               download="James_Ian_Bayonas_Resume.pdf"
               className="text-sm px-4 py-2 border w-fit cursor-pointer"
               style={{
