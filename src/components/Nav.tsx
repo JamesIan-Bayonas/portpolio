@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
+import resumePdf from "./docs/resume/RESUME.pdf"
 
 const links = ["about", "process", "projects", "skills", "contact"]
 
@@ -95,21 +96,19 @@ export default function Nav() {
               )}
             </a>
           ))}
+
+          {/* Direct Download Button */}
+          {/* Desktop Link */}
           <a
-            href="/resume.pdf"
-            className="text-sm transition-colors duration-150 px-4 py-1.5 border"
+            href={resumePdf}
+            download="James_Ian_Bayonas_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm transition-colors duration-150 px-4 py-1.5 border cursor-pointer"
             style={{
               fontFamily: "var(--font-mono)",
               color: "var(--color-text1)",
               borderColor: "var(--color-border)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)"
-              ;(e.currentTarget as HTMLElement).style.color = "var(--color-accent)"
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)"
-              ;(e.currentTarget as HTMLElement).style.color = "var(--color-text1)"
             }}
           >
             Resume
@@ -171,9 +170,14 @@ export default function Nav() {
                 {link}
               </a>
             ))}
+            
+            {/* Mobile Link */}
             <a
-              href="/resume.pdf"
-              className="text-sm px-4 py-2 border w-fit"
+              href={resumePdf}
+              download="James_Ian_Bayonas_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm px-4 py-2 border w-fit cursor-pointer"
               style={{
                 fontFamily: "var(--font-mono)",
                 color: "var(--color-text1)",
