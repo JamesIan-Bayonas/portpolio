@@ -1,0 +1,10 @@
+{
+  "description": "Enhances a developer portfolio with smooth animations, interactive glow effects, and responsive micro-interactions to showcase skills and projects engagingly.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
