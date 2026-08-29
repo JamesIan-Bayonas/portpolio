@@ -35,9 +35,18 @@ function ScrollProgress() {
 export default function App() {
   return (
     <div
-      className="relative"
+      className="relative min-h-screen"
       style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text1)" }}
     >
+      {/* 1. Ambient Mood Lighting */}
+      <div aria-hidden="true" className="ambient-glow" />
+
+      {/* 2. Grid Pattern Layer (catches the light above it) */}
+      <div 
+        aria-hidden="true"
+        className="bg-grid-pattern pointer-events-none fixed inset-0 z-0" 
+      />
+
       <Nav />
       <ScrollProgress />
       <main
