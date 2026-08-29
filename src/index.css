@@ -35,8 +35,6 @@ body,
   height: 100%;
 }
 
-/* Update in src/index.css */
-
 body {
   background-color: #0A0D12;
   color: #E8EAED;
@@ -45,44 +43,55 @@ body {
   position: relative;
 }
 
+/* ─── Blueprint Grid ──────────────────────────────────────────────────────── */
 .bg-grid-pattern {
-  /* 1. Large architectural cell scale */
   background-size: 88px 88px;
-
-  /* 2. Ultra-subtle stroke contrast */
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+  background-image:
+    linear-gradient(to right,  rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-
-  /* 3. Wide, smooth atmospheric vignette */
   mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 80%);
 }
 
-/* Ambient Lighting / Atmospheric Aura */
+/* ─── Ambient Glow ────────────────────────────────────────────────────────── */
+/*
+  CENTERING: left: calc(50% - 450px)
+  ─────────────────────────────────
+  The glow is 900px wide. We want its horizontal center at 50vw.
+  Left edge = 50vw - (900 / 2) = 50vw - 450px → calc(50% - 450px).
+
+  This requires NO transform for centering. Framer Motion only manages
+  `scale` on this element, with zero centering responsibility.
+
+  DO NOT use left: 50% + transform: translateX(-50%) here.
+  Framer Motion owns the entire `transform` shorthand on elements it
+  animates — any CSS transform is silently overridden and centering breaks.
+*/
 .ambient-glow {
   position: fixed;
   top: -160px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 450px);
   width: 900px;
   height: 480px;
   background: radial-gradient(
     ellipse at center,
-    rgba(76, 158, 235, 0.16) 0%,
-    rgba(76, 158, 235, 0.04) 45%,
+    /* AFTER — ~25% more intensity */
+rgba(76, 158, 235, 0.20) 0%,
+rgba(76, 158, 235, 0.05) 45%,
     transparent 75%
   );
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
+  /* NO transform property — Framer Motion owns transform on this element */
 }
 
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
 * {
   scrollbar-width: thin;
   scrollbar-color: #232830 transparent;
 }
 
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background-color: #232830; }
