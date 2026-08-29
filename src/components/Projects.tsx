@@ -15,7 +15,7 @@ const projects = [
     title: "DORMFIX — Property & Dormitory Management System",
     description:
       "A full-stack dormitory management platform featuring a Zero-Trust AI payment verification pipeline (Tesseract OCR + LLM receipt audit), ACID-compliant room capacity allocation in MSSQL, real-time WebSocket communication, and automated maintenance triaging.",
-    tech: ["React 19", "TypeScript", "Node.js", "Express 5", "MSSQL", "Tesseract.js", "Gemini AI", "Socket.io", "Tailwind CSS"],
+    tech: ["React 19", "TypeScript", "Node.js", "Express 5", "PostgreSQL", "Supabase", "Tesseract.js", "Gemini AI", "Socket.io", "Tailwind CSS", "Recharts"],
     additions: 1240,
     deletions: 182,
     demo: "https://dormfix-jamesian-bayonas-projects.vercel.app",
@@ -29,7 +29,7 @@ const projects = [
     title: "ISDALOG — Maritime Catch Consignment & Escrow Logistics Ecosystem",
     description:
       "An autonomous maritime catch consignment and cold-chain logistics platform coupling an Edge-to-Cloud AI Telegram gateway (Gemini 2.5 Flash + Ollama LLaVA vision fallback) with a real-time Laravel/Inertia core, sub-second Reverb WebSocket bidding, cryptographic dual-OTP custody handshakes, and automated wallet escrow settlements.",
-    tech: ["Laravel 11", "React 18", "Inertia.js", "Laravel Reverb", "Node.js", "Gemini AI", "Ollama", "Leaflet", "MySQL", "Tailwind CSS"],
+    tech: ["Laravel 11", "React 18", "Inertia.js", "Laravel Reverb", "Node.js", "Gemini AI", "Ollama", "Leaflet", "PostgreSQL", "Supabase", "Tailwind CSS"],
     additions: 1540,
     deletions: 210,
     demo: "https://isdalog-production.up.railway.app",
@@ -43,7 +43,7 @@ const projects = [
     title: "PHARMALINK — Clinical Pharmacy Inventory & POS System",
     description:
       "A high-availability clinical pharmacy management and POS platform built with ASP.NET Core 8 and Dapper. Features atomic ACID-compliant multi-table sales transactions, automated stock deduction and void restoration, custom JWT role-based access control (Admin/Pharmacist), and real-time expiration audits.",
-    tech: ["ASP.NET Core 8", "C#", "React 19", "TypeScript", "PostgreSQL", "Dapper", "JWT Auth", "Tailwind CSS", "Recharts"],
+    tech: ["ASP.NET Core 8", "C#", "React 19", "TypeScript", "PostgreSQL", "Supabase", "Dapper", "JWT Auth", "Tailwind CSS", "Recharts"],
     additions: 1120,
     deletions: 145,
     demo: "https://pharmalink-web-wine.vercel.app/dashboard",
@@ -57,7 +57,7 @@ const projects = [
     title: "CENTRALOG — Institutional Asset Telemetry & Depreciation Ledger",
     description:
       "An enterprise hardware resource management and financial accounting platform built with .NET 8 and React 19. Features dynamic straight-line/double-declining depreciation accounting adjusting for repair downtime, an autonomous 60-second preventative maintenance background daemon, atomic bulk transfers with audit trails, and printable QR sticker queues.",
-    tech: ["ASP.NET Core 8", "C#", "React 19", "TypeScript", "EF Core 8", "MySQL", "JWT Auth", "Vitest", "xUnit"],
+    tech: ["ASP.NET Core 8", "C#", "React 19", "TypeScript", "EF Core 8", "Azure SQL Database", "JWT Auth", "Vitest", "xUnit"],
     additions: 1420,
     deletions: 165,
     demo: "https://centralog.vercel.app/",
