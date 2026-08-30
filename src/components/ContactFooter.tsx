@@ -168,7 +168,7 @@ export default function ContactFooter() {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <span className="text-xs" style={{ fontFamily: "var(--font-body)", color: "var(--color-text2)" }}>
-            © 2024 Bayonas. All rights reserved.
+            © 2026 Bayonas. All rights reserved.
           </span>
           <span
             className="text-xs tracking-widest uppercase"
