@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 // import resumePdf from "./docs/resume/RESUME.pdf?url"
 
 const links = ["about", "process", "projects", "skills", "contact"]
@@ -9,6 +9,22 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [logoCursor, setLogoCursor] = useState(true)
   const reduced = useReducedMotion()
+  const toggleRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setMenuOpen(false); toggleRef.current?.focus() }
+    }
+    const desktop = window.matchMedia("(min-width: 1024px)")
+    const onResize = () => { if (desktop.matches) setMenuOpen(false) }
+    document.addEventListener("keydown", onKey)
+    desktop.addEventListener("change", onResize)
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      desktop.removeEventListener("change", onResize)
+    }
+  }, [menuOpen])
 
   useEffect(() => {
     if (reduced) return
@@ -43,9 +59,9 @@ export default function Nav() {
         backdropFilter: "blur(8px)",
       }}
     >
-      <div className="max-w-[1440px] mx-auto px-10 h-full flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto min-w-0 px-4 sm:px-6 lg:px-10 h-full flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <span
             className="text-sm select-none"
             style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
@@ -65,7 +81,7 @@ export default function Nav() {
             ]
           </span>
           <span
-            className="text-sm font-bold"
+            className="text-xs sm:text-sm font-bold"
             style={{ fontFamily: "var(--font-display)", color: "var(--color-text1)" }}
           >
             James Ian Bayonas
@@ -73,7 +89,7 @@ export default function Nav() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {links.map((link) => (
             <a
               key={link}
@@ -99,7 +115,7 @@ export default function Nav() {
 
           {/* Desktop Link */}
           <a
-            href="/RESUME.pdf"
+            href="/Resume.pdf"
             download="James_Ian_Bayonas_Resume.pdf"
             className="text-sm transition-colors duration-150 px-4 py-1.5 border cursor-pointer"
             style={{
@@ -122,7 +138,10 @@ export default function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          ref={toggleRef}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          className="lg:hidden shrink-0 w-11 h-11 flex flex-col justify-center items-center gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -151,7 +170,8 @@ export default function Nav() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="md:hidden border-t px-10 py-6 flex flex-col gap-4"
+            id="mobile-navigation"
+            className="max-h-[calc(100dvh-72px)] overflow-y-auto lg:hidden border-t px-4 sm:px-6 lg:px-10 py-6 flex flex-col gap-4"
             style={{
               backgroundColor: "var(--color-bg)",
               borderColor: "var(--color-border)",
@@ -166,7 +186,7 @@ export default function Nav() {
                 key={link}
                 href={`#${link}`}
                 onClick={() => { setActive(link); setMenuOpen(false) }}
-                className="text-sm lowercase"
+                className="text-sm lowercase flex items-center min-h-11"
                 style={{
                   fontFamily: "var(--font-mono)",
                   color: active === link ? "var(--color-accent)" : "var(--color-text2)",
@@ -178,7 +198,7 @@ export default function Nav() {
             
             {/* Mobile Menu Link */}
             <a
-              href="/RESUME.pdf"
+              href="/Resume.pdf"
               download="James_Ian_Bayonas_Resume.pdf"
               className="text-sm px-4 py-2 border w-fit cursor-pointer"
               style={{

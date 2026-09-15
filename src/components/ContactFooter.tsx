@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import SpotlightCard from "./ui/SpotlightCard"
 
 const cards = [
@@ -50,7 +50,7 @@ function ContactCard({ card, index }: { card: (typeof cards)[number]; index: num
       whileHover={reduced ? {} : { y: -4 }}
     >
       <SpotlightCard
-        className="border p-8 flex flex-col gap-0 group h-full"
+        className="border p-5 sm:p-6 lg:p-8 flex flex-col gap-0 group h-full"
         style={{
           backgroundColor: "var(--color-surface)",
           borderColor: "var(--color-border)",
@@ -91,7 +91,7 @@ function ContactCard({ card, index }: { card: (typeof cards)[number]; index: num
             {card.label}
           </p>
           <p
-            className="text-xs"
+            className="text-xs min-w-0 [overflow-wrap:anywhere]"
             style={{ fontFamily: "var(--font-mono)", color: "var(--color-text2)" }}
           >
             {card.sub}
@@ -106,10 +106,10 @@ export default function ContactFooter() {
   return (
     <section
       id="contact"
-      className="relative z-10"
-      style={{ padding: "96px 40px 0", borderTop: "1px solid var(--color-border)" }}
+      className="relative z-10 px-4 pt-16 sm:px-6 sm:pt-20 lg:px-10 lg:pt-24"
+      style={{ borderTop: "1px solid var(--color-border)" }}
     >
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto min-w-0">
         {/* Status header */}
         <motion.div
           className="flex items-center gap-3 mb-4"
@@ -152,7 +152,7 @@ export default function ContactFooter() {
         </motion.h2>
 
         {/* 3 cards */}
-        <div className="grid gap-6 mb-24" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 lg:mb-24">
           {cards.map((card, i) => (
             <ContactCard key={card.label} card={card} index={i} />
           ))}
@@ -160,7 +160,7 @@ export default function ContactFooter() {
 
         {/* Footer bar */}
         <motion.div
-          className="flex items-center justify-between py-8 border-t"
+          className="flex flex-col items-start gap-5 md:flex-row md:flex-wrap md:items-center md:justify-between py-8 border-t"
           style={{ borderColor: "var(--color-border)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

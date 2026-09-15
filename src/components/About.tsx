@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import SpotlightCard from "./ui/SpotlightCard"
 
 const capabilities = ["01", "02", "03", "04"]
@@ -20,10 +20,10 @@ export default function About() {
   return (
     <section
       id="about-section"
-      className="relative z-10"
-      style={{ padding: "96px 40px", borderTop: "1px solid var(--color-border)" }}
+      className="relative z-10 px-4 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24"
+      style={{ borderTop: "1px solid var(--color-border)" }}
     >
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto min-w-0">
         {/* Section header */}
         <motion.p
           className="text-xs tracking-widest mb-12"
@@ -36,7 +36,7 @@ export default function About() {
           00 — ABOUT
         </motion.p>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: "60fr 40fr" }}>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,60fr)_minmax(0,40fr)]">
           {/* Left card — slides from left */}
           <motion.div
             initial={reduced ? { opacity: 0 } : { opacity: 0, x: -32 }}
@@ -45,7 +45,7 @@ export default function About() {
             transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <SpotlightCard
-              className="border p-8 flex flex-col justify-between h-full"
+              className="border p-5 sm:p-6 lg:p-8 flex flex-col justify-between h-full"
               style={{
                 backgroundColor: "var(--color-surface)",
                 borderColor: "var(--color-border)",
@@ -107,7 +107,7 @@ export default function About() {
             transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <SpotlightCard
-              className="border p-8 flex flex-col justify-between h-full"
+              className="border p-5 sm:p-6 lg:p-8 flex flex-col justify-between h-full"
               style={{
                 backgroundColor: "var(--color-surface)",
                 borderColor: "var(--color-border)",

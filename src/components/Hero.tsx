@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 
 const linePairs = [
   {
@@ -21,10 +21,16 @@ const LINE_STAGGER = 280
 const INITIAL_PAUSE = 600
 
 function DiffPanel() {
+  const reduced = useReducedMotion()
   const [typedLines, setTypedLines] = useState<string[]>(["", "", ""])
   const [visibleLines, setVisibleLines] = useState<boolean[]>([false, false, false])
 
   useEffect(() => {
+    if (reduced) {
+      setTypedLines(linePairs.map(pair => pair.next))
+      setVisibleLines([true, true, true])
+      return
+    }
     let cancelled = false
     const timers: ReturnType<typeof setTimeout>[] = []
 
@@ -67,7 +73,7 @@ function DiffPanel() {
       cancelled = true
       timers.forEach(clearTimeout)
     }
-  }, [])
+  }, [reduced])
 
   return (
     <div
@@ -80,7 +86,7 @@ function DiffPanel() {
       }}
     >
       <div
-        className="flex items-center gap-3 px-4 py-3 border-b"
+        className="flex flex-wrap items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 border-b"
         style={{ borderColor: "var(--color-border)" }}
       >
         <div className="flex items-center gap-1.5">
@@ -104,7 +110,7 @@ function DiffPanel() {
         </span>
       </div>
 
-      <div className="p-0 text-sm leading-7" style={{ fontFamily: "var(--font-mono)" }}>
+      <div className="p-0 text-xs sm:text-sm leading-6 sm:leading-7" style={{ fontFamily: "var(--font-mono)" }}>
         <DiffLine type="ctx">{"const config = {"}</DiffLine>
         <DiffLine type="ctx">{'  name: "James Ian Bayonas",'}</DiffLine>
 
@@ -158,7 +164,7 @@ function DiffLine({ type, children }: { type: "add" | "remove" | "ctx"; children
         : "transparent"
 
   return (
-    <div className="flex items-baseline gap-3 px-4" style={{ backgroundColor: bg, minHeight: "28px" }}>
+    <div className="flex min-w-0 items-baseline gap-2 sm:gap-3 px-3 sm:px-4" style={{ backgroundColor: bg, minHeight: "28px" }}>
       <span className="text-xs w-3 shrink-0 select-none" style={{ color, opacity: 0.7 }}>
         {prefix}
       </span>
@@ -167,7 +173,9 @@ function DiffLine({ type, children }: { type: "add" | "remove" | "ctx"; children
           color,
           textDecoration: type === "remove" ? "line-through" : "none",
           opacity: type === "remove" ? 0.55 : 1,
-          wordBreak: "break-all",
+          overflowWrap: "anywhere",
+          minWidth: 0,
+          whiteSpace: "pre-wrap",
         }}
       >
         {children}
@@ -184,15 +192,14 @@ export default function Hero() {
     return {
       initial: { opacity: 0, y: 20 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
     }
   }
 
   return (
-    <section id="about" className="relative z-10 min-h-screen flex items-center" style={{ paddingTop: "72px" }}>
+    <section id="about" className="relative z-10 min-h-[100svh] flex items-center pt-28 pb-16 lg:pt-[72px] lg:pb-0">
       <div
-        className="max-w-[1440px] mx-auto px-10 w-full grid gap-16 items-center"
-        style={{ gridTemplateColumns: "55fr 45fr" }}
+        className="max-w-[1440px] mx-auto min-w-0 px-4 sm:px-6 lg:px-10 w-full grid grid-cols-1 gap-10 lg:gap-16 items-center lg:grid-cols-[minmax(0,55fr)_minmax(0,45fr)]"
       >
         {/* Left */}
         <div className="flex flex-col gap-0">
@@ -210,7 +217,7 @@ export default function Hero() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 700,
-              fontSize: "clamp(40px, 4.5vw, 64px)",
+              fontSize: "clamp(2.125rem, 4.5vw, 4rem)",
               color: "var(--color-text1)",
             }}
           >
@@ -227,10 +234,10 @@ export default function Hero() {
             data integrity, and performance. Based in the Philippines, open to remote opportunities.
           </motion.p>
 
-          <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 mb-8">
+          <motion.div {...fadeUp(0.3)} className="flex flex-col min-[400px]:flex-row flex-wrap items-stretch min-[400px]:items-center gap-3 mb-8">
             <motion.a
               href="#projects"
-              className="text-sm px-6 py-3"
+              className="text-sm text-center min-h-11 px-6 py-3"
               style={{
                 fontFamily: "var(--font-mono)",
                 backgroundColor: "var(--color-accent)",
@@ -247,7 +254,7 @@ export default function Hero() {
               href="https://github.com/JamesIan-Bayonas"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm px-6 py-3 border transition-colors duration-150"
+              className="text-sm text-center min-h-11 px-6 py-3 border transition-colors duration-150"
               style={{
                 fontFamily: "var(--font-mono)",
                 color: "var(--color-text1)",
