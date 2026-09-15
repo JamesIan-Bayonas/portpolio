@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 
 const columns = [
   {
@@ -56,6 +56,8 @@ function ActivitySquare({ level, delay, isRowHovered }: { level: number; delay: 
   return (
     <div style={{ position: "relative" }}>
       <motion.span
+        role="img"
+        aria-label={activityLabels[level - 1] ?? "None"}
         className="inline-block cursor-default"
         style={{
           width: "9px",
@@ -103,7 +105,7 @@ function ActivitySquare({ level, delay, isRowHovered }: { level: number; delay: 
 function ContributionStrip({ activity, isRowHovered }: { activity: number[]; isRowHovered: boolean }) {
   const reduced = useReducedMotion()
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex shrink-0 items-center gap-0.5">
       {activity.map((level, i) => (
         <ActivitySquare key={i} level={level} delay={reduced ? 0 : i * 0.03} isRowHovered={isRowHovered} />
       ))}
@@ -118,10 +120,10 @@ export default function SkillsMatrix() {
   return (
     <section
       id="skills"
-      className="relative z-10"
-      style={{ padding: "96px 40px", borderTop: "1px solid var(--color-border)" }}
+      className="relative z-10 px-4 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24"
+      style={{ borderTop: "1px solid var(--color-border)" }}
     >
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto min-w-0">
         <motion.p
           className="text-xs tracking-widest mb-16"
           style={{ fontFamily: "var(--font-mono)", color: "var(--color-text2)" }}
@@ -133,7 +135,7 @@ export default function SkillsMatrix() {
           a1d2e3 — TECHNICAL SKILLS
         </motion.p>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {columns.map((col, ci) => (
             <motion.div
               key={col.category}
@@ -181,7 +183,7 @@ export default function SkillsMatrix() {
                 {col.tools.map((tool, i) => (
                   <div key={tool.name}>
                     <div
-                      className="flex items-center justify-between py-2.5 cursor-default"
+                      className="flex min-w-0 gap-3 items-center justify-between py-2.5 cursor-default"
                       onMouseEnter={() => setHoveredTool(tool.name)}
                       onMouseLeave={() => setHoveredTool(null)}
                     >

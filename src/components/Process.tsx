@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 
 const steps = [
   {
@@ -29,10 +29,10 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="relative z-10"
-      style={{ padding: "64px 40px", borderTop: "1px solid var(--color-border)" }}
+      className="relative z-10 px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-16"
+      style={{ borderTop: "1px solid var(--color-border)" }}
     >
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto min-w-0">
         <motion.p
           className="text-xs tracking-widest mb-12"
           style={{ fontFamily: "var(--font-mono)", color: "var(--color-text2)" }}
@@ -44,9 +44,9 @@ export default function Process() {
           HOW I WORK
         </motion.p>
 
-        <div className="flex items-start" onMouseLeave={() => setHoveredStep(null)}>
+        <div className="flex flex-col gap-8 lg:flex-row lg:gap-0 items-stretch" onMouseLeave={() => setHoveredStep(null)}>
           {steps.map((step, i) => (
-            <div key={step.num} className="flex items-start flex-1">
+            <div key={step.num} className="flex min-w-0 items-start flex-1">
               <motion.div
                 className="flex-1 cursor-default"
                 initial={{ opacity: 0, y: 28 }}
@@ -90,7 +90,7 @@ export default function Process() {
 
               {i < steps.length - 1 && (
                 <div
-                  className="mx-8 shrink-0 overflow-hidden"
+                  className="hidden lg:block mx-4 xl:mx-8 shrink-0 overflow-hidden"
                   style={{ width: "48px", height: "1px", marginTop: "22px", backgroundColor: "var(--color-border)" }}
                 >
                   <motion.div

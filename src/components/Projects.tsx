@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import SpotlightCard from "./ui/SpotlightCard"
 
 // 1. Import image assets directly
@@ -132,10 +132,10 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative z-10"
-      style={{ padding: "96px 40px", borderTop: "1px solid var(--color-border)" }}
+      className="relative z-10 px-4 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24"
+      style={{ borderTop: "1px solid var(--color-border)" }}
     >
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto min-w-0">
         <motion.p
           className="text-xs tracking-widest mb-16 font-mono"
           style={{ color: "var(--color-text2)" }}
@@ -152,6 +152,7 @@ export default function Projects() {
 
           const visual = (
             <motion.div
+              className={isEven ? "min-w-0 order-1 lg:order-2" : "min-w-0 order-1"}
               initial={reduced ? { opacity: 0 } : { opacity: 0, x: isEven ? 28 : -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={VIEW}
@@ -181,7 +182,7 @@ export default function Projects() {
 
           const content = (
             <motion.div
-              className="flex flex-col justify-center"
+              className={isEven ? "min-w-0 flex flex-col justify-center order-2 lg:order-1" : "min-w-0 flex flex-col justify-center order-2"}
               initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEW}
@@ -221,12 +222,12 @@ export default function Projects() {
                   </motion.span>
                 ))}
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <a
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs px-5 py-2.5 border font-mono transition-colors duration-150"
+                  className="text-xs min-h-11 inline-flex items-center px-5 py-2.5 border font-mono transition-colors duration-150"
                   style={{ color: "var(--color-text1)", borderColor: "var(--color-border)" }}
                   onMouseEnter={(e) => {
                     ;(e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)"
@@ -243,7 +244,7 @@ export default function Projects() {
                   href={project.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs px-5 py-2.5 font-mono transition-colors duration-150"
+                  className="text-xs min-h-11 inline-flex items-center px-5 py-2.5 font-mono transition-colors duration-150"
                   style={{ color: "var(--color-text2)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text1)" }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text2)" }}
@@ -257,9 +258,8 @@ export default function Projects() {
           return (
             <div
               key={project.num}
-              className="grid gap-16 items-center"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
               style={{
-                gridTemplateColumns: "1fr 1fr",
                 marginBottom: i < projects.length - 1 ? "96px" : 0,
               }}
             >

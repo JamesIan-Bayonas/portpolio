@@ -1,5 +1,5 @@
 import { useRef, useState, type MouseEvent, type ReactNode } from "react"
-import { useReducedMotion } from "framer-motion"
+import { useReducedMotion } from "motion/react"
 
 interface SpotlightCardProps {
   children: ReactNode
