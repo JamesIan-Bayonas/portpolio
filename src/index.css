@@ -95,3 +95,21 @@ rgba(76, 158, 235, 0.05) 45%,
 ::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background-color: #232830; }
+
+/* Responsive layout foundations. Clip decoration, not page content. */
+section[id] { scroll-margin-top: 88px; }
+/* Contain slide-in animation paint without suppressing vertical scrolling. */
+main { overflow-x: clip; }
+main a:has(> svg) { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+main, section, .grid > *, .flex > * { min-width: 0; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+@media (max-width: 639px) {
+  .ambient-glow { width: 100%; left: 0; height: 360px; filter: blur(40px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-ping, .animate-pulse { animation: none; }
+}

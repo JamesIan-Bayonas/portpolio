@@ -136,6 +136,7 @@ function AmbientAtmosphere() {
         pointerEvents: "none",
         zIndex: 0,
         willChange: "opacity",
+        overflow: "clip",
       }}
     >
       {/*
