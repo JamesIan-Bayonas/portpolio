@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
-// import resumePdf from "./docs/resume/RESUME.pdf?url"
+
+const resumeUrl = `${import.meta.env.BASE_URL}RESUME.pdf`
 
 const links = ["about", "process", "projects", "skills", "contact"]
 
@@ -115,7 +116,7 @@ export default function Nav() {
 
           {/* Desktop Link */}
           <a
-            href="/Resume.pdf"
+            href={resumeUrl}
             download="James_Ian_Bayonas_Resume.pdf"
             className="text-sm transition-colors duration-150 px-4 py-1.5 border cursor-pointer"
             style={{
@@ -198,7 +199,7 @@ export default function Nav() {
             
             {/* Mobile Menu Link */}
             <a
-              href="/Resume.pdf"
+              href={resumeUrl}
               download="James_Ian_Bayonas_Resume.pdf"
               className="text-sm px-4 py-2 border w-fit cursor-pointer"
               style={{
