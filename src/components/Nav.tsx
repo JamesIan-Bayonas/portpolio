@@ -5,12 +5,49 @@ const resumeUrl = `${import.meta.env.BASE_URL}RESUME.pdf`
 
 const links = ["about", "process", "projects", "skills", "contact"]
 
+function SunIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  )
+}
+
+function applyTheme(t: "dark" | "light") {
+  document.documentElement.setAttribute("data-theme", t)
+}
+
 export default function Nav() {
   const [active, setActive] = useState("about")
   const [menuOpen, setMenuOpen] = useState(false)
   const [logoCursor, setLogoCursor] = useState(true)
+  const [theme, setTheme] = useState<"dark" | "light">("dark")
   const reduced = useReducedMotion()
   const toggleRef = useRef<HTMLButtonElement>(null)
+
+  // Initialise theme from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("portfolio-theme") as "dark" | "light" | null
+    const initial = saved === "light" ? "light" : "dark"
+    setTheme(initial)
+    applyTheme(initial)
+  }, [])
+
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark"
+    setTheme(next)
+    applyTheme(next)
+    localStorage.setItem("portfolio-theme", next)
+  }
 
   useEffect(() => {
     if (!menuOpen) return
@@ -55,7 +92,7 @@ export default function Nav() {
       className="fixed top-0 inset-x-0 z-50 border-b"
       style={{
         height: "72px",
-        backgroundColor: "rgba(10, 13, 18, 0.95)",
+        backgroundColor: "var(--color-nav-bg)",
         borderColor: "var(--color-border)",
         backdropFilter: "blur(8px)",
       }}
@@ -114,7 +151,19 @@ export default function Nav() {
             </a>
           ))}
 
-          {/* Desktop Link */}
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="transition-colors duration-150 w-9 h-9 flex items-center justify-center"
+            style={{ color: "var(--color-text2)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text1)" }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text2)" }}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+
+          {/* Desktop Resume Link */}
           <a
             href={resumeUrl}
             download="James_Ian_Bayonas_Resume.pdf"
@@ -137,34 +186,47 @@ export default function Nav() {
           </a>
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          ref={toggleRef}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          className="lg:hidden shrink-0 w-11 h-11 flex flex-col justify-center items-center gap-1.5 p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <motion.span
-            className="block w-5 h-px"
-            style={{ backgroundColor: "var(--color-text1)" }}
-            animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.2 }}
-          />
-          <motion.span
-            className="block w-5 h-px"
-            style={{ backgroundColor: "var(--color-text1)" }}
-            animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.15 }}
-          />
-          <motion.span
-            className="block w-5 h-px"
-            style={{ backgroundColor: "var(--color-text1)" }}
-            animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.2 }}
-          />
-        </button>
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="lg:hidden flex items-center gap-1">
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="transition-colors duration-150 w-11 h-11 flex items-center justify-center"
+            style={{ color: "var(--color-text2)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text1)" }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text2)" }}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+
+          <button
+            ref={toggleRef}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            className="shrink-0 w-11 h-11 flex flex-col justify-center items-center gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <motion.span
+              className="block w-5 h-px"
+              style={{ backgroundColor: "var(--color-text1)" }}
+              animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="block w-5 h-px"
+              style={{ backgroundColor: "var(--color-text1)" }}
+              animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.15 }}
+            />
+            <motion.span
+              className="block w-5 h-px"
+              style={{ backgroundColor: "var(--color-text1)" }}
+              animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -196,8 +258,8 @@ export default function Nav() {
                 {link}
               </a>
             ))}
-            
-            {/* Mobile Menu Link */}
+
+            {/* Mobile Menu Resume Link */}
             <a
               href={resumeUrl}
               download="James_Ian_Bayonas_Resume.pdf"
@@ -214,5 +276,5 @@ export default function Nav() {
         )}
       </AnimatePresence>
     </header>
-)
+  )
 }

@@ -158,9 +158,9 @@ function DiffLine({ type, children }: { type: "add" | "remove" | "ctx"; children
         : "var(--color-text2)"
   const bg =
     type === "add"
-      ? "rgba(63, 185, 99, 0.08)"
+      ? "var(--color-diff-add-bg)"
       : type === "remove"
-        ? "rgba(226, 88, 75, 0.08)"
+        ? "var(--color-diff-remove-bg)"
         : "transparent"
 
   return (
@@ -244,7 +244,7 @@ export default function Hero() {
                 color: "var(--color-bg)",
                 display: "inline-block",
               }}
-              whileHover={reduced ? {} : { y: -2, boxShadow: "0 0 28px -4px rgba(76, 158, 235, 0.5)" }}
+              whileHover={reduced ? {} : { y: -2, boxShadow: "0 0 28px -4px var(--color-accent-shadow)" }}
               whileTap={reduced ? {} : { scale: 0.98 }}
               transition={{ duration: 0.18 }}
             >
