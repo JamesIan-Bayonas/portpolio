@@ -149,14 +149,20 @@ export default function SkillsMatrix() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEW}
               transition={{ duration: 0.55, delay: ci * 0.07, ease: EASE }}
-              whileHover={reduced ? {} : { y: -4, borderColor: "rgba(76,158,235,0.4)" }}
+              whileHover={reduced ? {} : { y: -4 }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)"
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)"
+              }}
             >
               {/* glow on hover */}
               {!reduced && (
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"
                   style={{
-                    background: "radial-gradient(ellipse at top, rgba(76,158,235,0.06) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse at top, var(--color-card-glow) 0%, transparent 70%)",
                   }}
                 />
               )}
